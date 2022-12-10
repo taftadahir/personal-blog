@@ -1,5 +1,5 @@
 <script setup>
-import SidebarItem from '@/Components/Dashboard/SidebarItem.vue'
+import SidebarItem from '@/Components/SidebarItem.vue'
 import TrashOutline from '@/Components/Icons/TrashOutline.vue'
 
 const props = defineProps({
