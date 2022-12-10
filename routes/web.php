@@ -18,14 +18,27 @@ Route::get('/', function (Request $request) {
 })->name('home');
 
 Route::middleware('auth')->group(function () {
-
 	Route::get('/dashboard', function () {
 		return Inertia::render('Dashboard');
 	})->name('dashboard');
 });
 
-Route::get('/single/{article:slug}', function () {
-	return 'Single';
+Route::get('/single/{article:slug}', function (Article $article) {
+	$article->update([
+		'view_count' => $article->view_count + 1
+	]);
+
+	$articles = Article::with(['banner'])
+		->published()
+		->latest()
+		->limit(3)
+		->get()
+		->except($article->id);
+
+	return Inertia::render('Single', [
+		'article' => $article->load(['banner']),
+		'articles' => $articles,
+	]);
 })->name('single');
 
 require __DIR__ . '/auth.php';

@@ -49,7 +49,8 @@ const submit = () => {
 
 					<!-- Banner & Summary -->
 					<div class="mb-6">
-						<img :src="'/storage/assets/' + article.banner.name" alt="Article Image" v-if="article.banner"
+						<img :src="'/storage/assets/' + article.banner.file_name"
+														alt="Article Image" v-if="article.banner != null"
 							class="block mb-4" />
 						<summary v-if="article.excerpt" v-text="article.excerpt" class="mx-4 sm:mx-0 block"></summary>
 					</div>
@@ -151,11 +152,11 @@ const submit = () => {
 			</div>
 		</div>
 
-		<div v-if="articles.data.length" class="sm:mx-4 lg:mx-0">
+		<div v-if="articles.length" class="sm:mx-4 lg:mx-0">
 			<h1 class="mb-4 mx-4 sm:mx-0">Derniers articles publiés</h1>
 			<!-- Articles -->
 			<div class="mb-12 grid grid-cols-1 no-scrollbar gap-y-6 sm:gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
-				<Article v-for="article in articles.data" :key="article.slug" :article="article"
+				<Article v-for="article in articles" :key="article.slug" :article="article"
 					:show-image="article.banner != null"></Article>
 			</div>
 		</div>
