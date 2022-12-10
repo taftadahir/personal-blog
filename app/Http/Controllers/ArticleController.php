@@ -15,7 +15,7 @@ class ArticleController extends Controller
 	{
 		$articles = Article::with(['banner'])
 			->latest()
-			->paginate(12);
+			->paginate(8);
 
 		return Inertia::render('Article/Index', [
 			'articles' => $articles,

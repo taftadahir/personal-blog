@@ -7,8 +7,9 @@ use Inertia\Inertia;
 
 Route::get('/', function (Request $request) {
 	$articles = Article::with(['banner'])
+		->published()
 		->latest()
-		->paginate(12);
+		->paginate(9);
 
 	return Inertia::render('Home', [
 		'articles' => $articles,

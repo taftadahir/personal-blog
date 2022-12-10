@@ -25,6 +25,15 @@ class Article extends Model
 		'view_count',
 	];
 
+	protected $casts = [
+		'published' => 'boolean',
+	];
+
+	public function scopePublished($query)
+	{
+		return $query->where('published', true);
+	}
+
 	protected function publishedAt(): Attribute
 	{
 		return Attribute::make(
