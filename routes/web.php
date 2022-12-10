@@ -5,26 +5,90 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function (Request $request) {
+	$assets = [
+		'data' => [
+			[
+				'id' => 1,
+				'file_name' => '10.jpg',
+			],
+			[
+				'id' => 1,
+				'file_name' => '10.jpg',
+			],
+			[
+				'id' => 1,
+				'file_name' => '10.jpg',
+			],
+			[
+				'id' => 1,
+				'file_name' => '10.jpg',
+			],
+			[
+				'id' => 1,
+				'file_name' => '10.jpg',
+			],
+			[
+				'id' => 1,
+				'file_name' => '10.jpg',
+			],
+		]
+	];
 	$articles = [
 		'data' => [
-			# [
-			# 	'title' => 'Les bases du markdown avec Obsidian',
-			# 	'slug' => 'slug',
-			# 	'banner' => [
-			# 		'name' => '10.jpg'
-			# 	],
-			# 	'published_at' => '10-02-2022',
-			# 	"read_time" => 20
-			# ],
-			# [
-			# 	'title' => 'Les bases du markdown avec Obsidian',
-			# 	'slug' => 'slug',
-			# 	'banner' => [
-			# 		'name' => '10.jpg'
-			# 	],
-			# 	'published_at' => '10-02-2022',
-			# 	"read_time" => 20
-			# ],
+			[
+				'title' => 'Les bases du markdown avec Obsidian',
+				'slug' => 'slug',
+				'banner' => [
+					'name' => '10.jpg'
+				],
+				'published_at' => '10-02-2022',
+				"read_time" => 20
+			],
+			[
+				'title' => 'Les bases du markdown avec Obsidian',
+				'slug' => 'slug',
+				'banner' => [
+					'name' => '10.jpg'
+				],
+				'published_at' => '10-02-2022',
+				"read_time" => 20
+			],
+			[
+				'title' => 'Les bases du markdown avec Obsidian',
+				'slug' => 'slug',
+				'banner' => [
+					'name' => '10.jpg'
+				],
+				'published_at' => '10-02-2022',
+				"read_time" => 20
+			],
+			[
+				'title' => 'Les bases du markdown avec Obsidian',
+				'slug' => 'slug',
+				'banner' => [
+					'name' => '10.jpg'
+				],
+				'published_at' => '10-02-2022',
+				"read_time" => 20
+			],
+			[
+				'title' => 'Les bases du markdown avec Obsidian',
+				'slug' => 'slug',
+				'banner' => [
+					'name' => '10.jpg'
+				],
+				'published_at' => '10-02-2022',
+				"read_time" => 20
+			],
+			[
+				'title' => 'Les bases du markdown avec Obsidian',
+				'slug' => 'slug',
+				'banner' => [
+					'name' => '10.jpg'
+				],
+				'published_at' => '10-02-2022',
+				"read_time" => 20
+			],
 			[
 				'title' => 'Les bases du markdown avec Obsidian',
 				'slug' => 'slug',
@@ -52,6 +116,31 @@ Route::get('/', function (Request $request) {
 				'published_at' => '10-02-2022',
 				"read_time" => 20
 			]
+		]
+	];
+
+	$newsletters = [
+		'data' => [
+			[
+				'id' => 1,
+				'email' => 'tt@dd.com'
+			],
+			[
+				'id' => 2,
+				'email' => 'tt@dd.com'
+			],
+			[
+				'id' => 3,
+				'email' => 'tt@dd.com'
+			],
+			[
+				'id' => 4,
+				'email' => 'tt@dd.com'
+			],
+			[
+				'id' => 5,
+				'email' => 'tt@dd.com'
+			],
 		]
 	];
 
@@ -132,68 +221,71 @@ Route::get('/', function (Request $request) {
 
 				<table>
 				<thead>
-  <tr>
-    <th>Company</th>
-    <th>Contact</th>
-    <th>Country</th>
+		  <tr>
+				<th>Company</th>
+				<th>Contact</th>
+				<th>Country</th>
 				</tr>
 				</thead>
 				<tbody>
-  <tr>
+		<tr>
     <td>Alfreds Futterkiste</td>
     <td>Maria Anders</td>
     <td>Germany</td>
-  </tr>
-  <tr>
+		</tr>
+		<tr>
     <td>Centro comercial Moctezuma</td>
     <td>Francisco Chang</td>
     <td>Mexico</td>
-  </tr>
-  <tr>
+		</tr>
+		<tr>
     <td>Ernst Handel</td>
     <td>Roland Mendel</td>
     <td>Austria</td>
-  </tr>
-  <tr>
+		</tr>
+		<tr>
     <td>Island Trading</td>
     <td>Helen Bennett</td>
     <td>UK</td>
-  </tr>
-  <tr>
+		</tr>
+		<tr>
     <td>Laughing Bacchus Winecellars</td>
     <td>Yoshi Tannamuri</td>
     <td>Canada</td>
-  </tr>
-  <tr>
+		</tr>
+		<tr>
     <td>Magazzini Alimentari Riuniti</td>
     <td>Giovanni Rovelli</td>
     <td>Italy</td>
 				</tr>
 				</tbody>
-</table>
+		</table>
 
-<figure class="px-8 block">
+		<figure class="px-8 block">
     <blockquote cite="https://www.huxley.net/bnw/four.html">
         <p>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and you’re pierced.</p>
     </blockquote>
     <figcaption>— Aldous Huxley, <cite>Brave New World</cite></figcaption>
-</figure>
+		</figure>
 				
 				'
 		];
 
-	return Inertia::render('Single', [
+	return Inertia::render('Newsletter/List', [
 		'article' => $article,
 		'articles' => $articles,
-		'filters' => $request->only('search')
+		'filters' => $request->only('search'),
+		'assets' => $assets,
+		'asset' => $assets['data'][0],
+		'newsletters' => $newsletters
 	]);
-})->name('home');
+})->name('dashboard');
 
 Route::middleware('auth')->group(function () {
 
 	Route::get('/dashboard', function () {
 		return Inertia::render('Dashboard');
-	})->name('dashboard');
+	})->name('home');
 });
 
 Route::get('/single/{article:slug}', function () {
@@ -201,3 +293,7 @@ Route::get('/single/{article:slug}', function () {
 })->name('single');
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/asset.php';
+require __DIR__ . '/article.php';
+require __DIR__ . '/comment.php';
+require __DIR__ . '/newsletter.php';

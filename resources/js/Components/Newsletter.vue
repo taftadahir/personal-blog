@@ -12,9 +12,7 @@ const form = useForm({
 })
 
 const submit = () => {
-	form.post(route('login'), {
-		onFinish: () => (open = false),
-	})
+	form.post(route('login'))
 }
 </script>
 
