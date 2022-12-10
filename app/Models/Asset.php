@@ -15,4 +15,9 @@ class Asset extends Model
 		'file_name',
 		'extension'
 	];
+
+	public function articles()
+	{
+		return $this->hasMany(Article::class, 'banner_id');
+	}
 }

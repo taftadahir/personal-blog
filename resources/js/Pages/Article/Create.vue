@@ -7,23 +7,32 @@ import Label from '@/Components/Label.vue'
 import ValidationError from '@/Components/ValidationError.vue'
 import Textarea from '@/Components/Textarea.vue'
 import useSlugify from '@/Composables/useSlugify'
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 
 const { slugify } = useSlugify()
 
-defineProps({
+const props = defineProps({
 	assets: Array,
 })
 
 const form = useForm({
 	banner: null,
-	title: '',
-	slug: '',
-	read_time: 0,
+	title: null,
+	slug: null,
+	read_time: null,
 	published: false,
-	excerpt: '',
-	content: '',
+	excerpt: null,
+	content: null,
 })
+
+let newBanner = ref(null)
+
+watch(
+	() => form.banner,
+	() => {
+		newBanner = props.assets.find((item) => item.id == form.banner)
+	}
+)
 
 // Auto-slugifying watcher
 watch(
@@ -49,12 +58,12 @@ const submit = () => {
 					Create Article
 				</h1>
 
-				<Button @click="submit">Save </Button>
+				<Button @click="submit">Save</Button>
 			</div>
 
 			<div class="h-full">
 				<form class="flex flex-row space-x-4 mb-6">
-					<div class="flex flex-col items-start space-y-4 min-w-[28rem] max-w-lg">
+					<div class="flex flex-col items-start space-y-4 w-full max-w-lg">
 						<div class="w-full">
 							<Label for="title" value="Title" />
 							<Input id="title" v-model="form.title" autofocus class="block w-full mt-2 p-4"
@@ -78,9 +87,26 @@ const submit = () => {
 
 						<div class="w-full">
 							<Label for="published" value="Published" />
-							<input type="checkbox" value="published" id="published"
-								class="w-4 h-4 text-primary-500 bg-white-500 border-primary-50 focus:ring-primary-50 rounded dark:focus:ring-black-600 dark:ring-offset-primary-600 focus:ring-2 dark:bg-black-700 dark:border-black-600 checked:border-primary-500 checked:ring-primary-500 checked:bg-primary-500" />
+							<input type="checkbox" id="published" v-model="form.published"
+								class="w-4 h-4 text-primary-500 bg-white-500 border-primary-50 focus:ring-primary-50 rounded dark:focus:ring-black-600 dark:ring-offset-primary-600 focus:ring-2 dark:bg-black-700 dark:border-black-600 checked:border-primary-500 checked:ring-primary-500 checked:bg-primary-500 mt-2" />
 							<ValidationError input="published" />
+						</div>
+
+						<div class="w-full space-y-2">
+							<Label for="banner" value="Banner" />
+							<select id="banner"
+								class="w-full p-4 bg-white-500 border-primary-50 focus:ring-primary-50 rounded dark:focus:ring-black-600 dark:ring-offset-primary-600 focus:ring-2 dark:bg-black-600 dark:border-black-600 checked:border-primary-500 checked:ring-primary-500 checked:bg-primary-500 mt-2"
+								v-model="form.banner">
+								<option :value="null" selected>
+									--- Select an option ---
+								</option>
+								<option v-for="asset in assets" :key="asset.file_name" :value="asset.id"
+									v-text="asset.file_name" />
+							</select>
+							<ValidationError input="banner" />
+
+							<img :src="'/storage/assets/' + newBanner.file_name" :alt="newBanner.file_name"
+								class="w-full aspect-video" v-if="newBanner" />
 						</div>
 					</div>
 

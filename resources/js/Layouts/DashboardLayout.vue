@@ -1,15 +1,15 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3'
 import SidebarItem from '@/Components/SidebarItem.vue'
+import FlashMessage from '@/Components/FlashMessage.vue'
 import Logout from '@/Components/Icons/Logout.vue'
 import DashboardIcon from '@/Components/Icons/Dashboard.vue'
 import ImageOutline from '@/Components/Icons/ImageOutline.vue'
 import ArticleIcon from '@/Components/Icons/Article.vue'
 import EmailOutline from '@/Components/Icons/EmailOutline.vue'
 import BulbOutline from '@/Components/Icons/BulbOutline.vue'
-import useSwitchTheme from '@/Composables/switchTheme'
 import CloudUploadOutline from '@/Components/Icons/CloudUploadOutline.vue'
-import FlashMessage from '@/Components/FlashMessage.vue'
+import useSwitchTheme from '@/Composables/switchTheme'
 
 const { switchTheme } = useSwitchTheme()
 
@@ -63,7 +63,7 @@ const toggleTheme = () => switchTheme()
 					route().current('articles.index') ||
 					route().current('articles.create') ||
 					route().current('articles.edit')
-				" :href="route('articles.create')">
+				" :href="route('articles.index')">
 					<ArticleIcon />
 				</SidebarItem>
 
@@ -104,7 +104,7 @@ const toggleTheme = () => switchTheme()
 			<!-- Flash message -->
 			<div v-if="$page.props.flash.success" class="flex flex-row justify-end items-center">
 				<FlashMessage v-if="$page.props.flash.success" :body="$page.props.flash.success" type="success"
-					class="my-2 h-28" />
+					class="my-2" />
 			</div>
 
 			<!-- Content -->

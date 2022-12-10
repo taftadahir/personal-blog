@@ -21,7 +21,7 @@ defineProps({
 					List Article
 				</h1>
 
-				<LinkButton :href="route('login')">Add</LinkButton>
+				<LinkButton :href="route('articles.create')">Add</LinkButton>
 			</div>
 
 			<div class="h-full">

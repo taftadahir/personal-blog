@@ -4,6 +4,9 @@ use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(ArticleController::class)->name('articles.')->group(function () {
+});
+
+Route::controller(ArticleController::class)->middleware(['auth'])->name('articles.')->group(function () {
 	Route::get('/articles', 'index')->name('index');
 
 	Route::get('/articles/create', 'create')->name('create');
