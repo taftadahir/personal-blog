@@ -12,7 +12,7 @@ const form = useForm({
 })
 
 const submit = () => {
-	form.post(route('login'))
+	form.post(route('newsletters.store'))
 }
 </script>
 
@@ -22,20 +22,20 @@ const submit = () => {
 			<slot name="trigger" />
 		</div>
 
-		<div v-show="open" class="fixed inset-0 z-40 bg-black-500 p-4">
+		<div v-show="open" class="fixed inset-0 z-40 bg-white-50 dark:bg-black-500 p-4">
 			<div class="flex flex-row justify-end">
 				<Close @click="open = false" class="cursor-pointer fill-error-500"></Close>
 			</div>
 
 			<div class="h-full flex flex-col justify-center items-center">
 				<div class="w-full flex flex-col justify-start max-w-5xl space-y-4">
-					<p class="font-semibold text-xl">
+					<p class="font-semibold text-xl text-black-500 dark:text-white-50">
 						Subscribe to our newsletter to get latest news postedin
 						this blog.
 					</p>
 
 					<form class="flex flex-row bg-primary-500 w-full">
-						<Input type="text" class="block w-full p-4" placeholder="Entre votre email" v-model="form.email"
+						<Input type="email" class="block w-full p-4" placeholder="Entre votre email" v-model="form.email"
 							required autofocus />
 						<Button @click="submit">Subscribe</Button>
 					</form>

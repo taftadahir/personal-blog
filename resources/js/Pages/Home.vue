@@ -56,8 +56,8 @@ watch(
 		</div>
 
 		<!-- Articles -->
-		<div
-			class="mb-12 grid grid-cols-1 gap-y-6 no-scrollbar sm:grid-cols-2 sm:gap-x-6 sm:px-4 lg:px-0 lg:grid-cols-3">
+		<div class="mb-12 grid grid-cols-1 gap-y-6 no-scrollbar sm:grid-cols-2 sm:gap-x-6 sm:px-4 lg:px-0 lg:grid-cols-3"
+			v-if="articles.data.length">
 			<Article v-for="article in articles.data" :key="article.slug" :article="article"
 				:show-image="article.banner != null"></Article>
 		</div>

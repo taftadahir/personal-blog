@@ -6,16 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
-    {
-        Schema::create('newsletters', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+	public function up()
+	{
+		Schema::create('newsletters', function (Blueprint $table) {
+			$table->id();
+			$table->string('email');
+			$table->timestamps();
+			$table->softDeletes();
+		});
+	}
 
-    public function down()
-    {
-        Schema::dropIfExists('newsletters');
-    }
+	public function down()
+	{
+		Schema::dropIfExists('newsletters');
+	}
 };
