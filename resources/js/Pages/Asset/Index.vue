@@ -21,7 +21,7 @@ defineProps({
 					List assets
 				</h1>
 
-				<LinkButton :href="route('login')">Import</LinkButton>
+				<LinkButton :href="route('assets.create')">Import</LinkButton>
 			</div>
 
 			<div class="h-full">
