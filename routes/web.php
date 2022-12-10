@@ -271,7 +271,7 @@ Route::get('/', function (Request $request) {
 				'
 		];
 
-	return Inertia::render('Newsletter/List', [
+	return Inertia::render('Auth/Login', [
 		'article' => $article,
 		'articles' => $articles,
 		'filters' => $request->only('search'),
