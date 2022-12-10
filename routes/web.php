@@ -271,7 +271,7 @@ Route::get('/', function (Request $request) {
 				'
 		];
 
-	return Inertia::render('Auth/Login', [
+	return Inertia::render('Home', [
 		'article' => $article,
 		'articles' => $articles,
 		'filters' => $request->only('search'),
@@ -279,13 +279,13 @@ Route::get('/', function (Request $request) {
 		'asset' => $assets['data'][0],
 		'newsletters' => $newsletters
 	]);
-})->name('dashboard');
+})->name('home');
 
 Route::middleware('auth')->group(function () {
 
 	Route::get('/dashboard', function () {
 		return Inertia::render('Dashboard');
-	})->name('home');
+	})->name('dashboard');
 });
 
 Route::get('/single/{article:slug}', function () {

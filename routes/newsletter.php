@@ -12,5 +12,7 @@ Route::controller(NewsletterController::class)->middleware(['auth'])->name('news
 	Route::delete('/newsletters/{newsletter}', 'destroy')->name('destroy');
 });
 
-Route::get('/newsletters/create', 'create')->name('create');
-Route::post('/newsletters', 'store')->name('store');
+Route::controller(NewsletterController::class)->name('newsletters.')->group(function () {
+	Route::get('/newsletters/create', 'create')->name('create');
+	Route::post('/newsletters', 'store')->name('store');
+});
