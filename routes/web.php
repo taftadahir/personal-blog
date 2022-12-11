@@ -7,10 +7,21 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function (Request $request) {
-	$articles = Article::with(['banner'])
-		->published()
+	$articles = Article::query()
+		->when($request->input('search'), function ($query, $search) {
+			$query
+				->where('title', 'like', "%{$search}%");
+		});
+
+	if (!auth()->check()) {
+		$articles->published();
+	}
+
+	$articles = $articles
+		->with(['banner'])
 		->latest()
-		->paginate(9);
+		->paginate(12)
+		->withQueryString();
 
 	return Inertia::render('Home', [
 		'articles' => $articles,
