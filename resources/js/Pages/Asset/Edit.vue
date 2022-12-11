@@ -4,7 +4,6 @@ import { Head, useForm } from '@inertiajs/inertia-vue3'
 import Input from '@/Components/Input.vue'
 import Label from '@/Components/Label.vue'
 import TrashOutline from '@/Components/Icons/TrashOutline.vue'
-import ValidationError from '@/Components/ValidationError.vue'
 import SidebarItem from '@/Components/SidebarItem.vue'
 
 const props = defineProps({
@@ -30,7 +29,8 @@ const form = useForm({
 				</h1>
 
 				<div class="flex flex-row space-x-4">
-					<SidebarItem :active="false" :href="route('logout')" :logout="true" as="button" method="post">
+					<SidebarItem :active="false" :href="route('assets.destroy', { asset: asset.id })" :logout="true"
+						as="button" method="delete">
 						<TrashOutline></TrashOutline>
 					</SidebarItem>
 				</div>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAssetRequest;
-use App\Http\Requests\UpdateAssetRequest;
 use App\Models\Asset;
 use App\Providers\RouteServiceProvider;
 use Inertia\Inertia;
@@ -38,7 +37,9 @@ class AssetController extends Controller
 			'extension' => $extension
 		]);
 
-		return redirect()->route(RouteServiceProvider::DASHBOARD);
+		return redirect()->route('assets.index')->with([
+			'success' => 'Asset Created successfull.'
+		]);
 	}
 
 	public function show(Asset $asset)
@@ -52,11 +53,12 @@ class AssetController extends Controller
 		]);
 	}
 
-	public function update(UpdateAssetRequest $request, Asset $asset)
-	{
-	}
-
 	public function destroy(Asset $asset)
 	{
+		$asset->delete();
+
+		return redirect()->route('assets.index')->with([
+			'success' => 'Asset Deleted successfull.'
+		]);
 	}
 }
