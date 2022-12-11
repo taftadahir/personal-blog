@@ -47,6 +47,9 @@ class AssetController extends Controller
 
 	public function edit(Asset $asset)
 	{
+		return Inertia::render('Asset/Edit', [
+			'asset' => $asset
+		]);
 	}
 
 	public function update(UpdateAssetRequest $request, Asset $asset)

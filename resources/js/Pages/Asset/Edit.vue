@@ -1,12 +1,11 @@
 <script setup>
 import DashboardLayout from '@/Layouts/DashboardLayout.vue'
 import { Head, useForm } from '@inertiajs/inertia-vue3'
-import Button from '@/Components/Button.vue'
 import Input from '@/Components/Input.vue'
 import Label from '@/Components/Label.vue'
 import TrashOutline from '@/Components/Icons/TrashOutline.vue'
 import ValidationError from '@/Components/ValidationError.vue'
-import SidebarItem from '@/Components/Dashboard/SidebarItem.vue'
+import SidebarItem from '@/Components/SidebarItem.vue'
 
 const props = defineProps({
 	asset: Object,
@@ -17,10 +16,6 @@ const form = useForm({
 	original_name: props.asset.original_name,
 	extension: props.asset.extension,
 })
-
-const submit = () => {
-	form.post(route('articles.store'))
-}
 </script>
 
 <template>
@@ -38,7 +33,6 @@ const submit = () => {
 					<SidebarItem :active="false" :href="route('logout')" :logout="true" as="button" method="post">
 						<TrashOutline></TrashOutline>
 					</SidebarItem>
-					<Button @click="submit">Save</Button>
 				</div>
 			</div>
 
@@ -48,22 +42,19 @@ const submit = () => {
 						<div class="w-full">
 							<Label for="file_name" value="File name" />
 							<Input id="title" v-model="form.file_name" autofocus class="block w-full mt-2 p-4"
-								placeholder="Fill the file name" required type="text" />
-							<ValidationError input="file_name" />
+								placeholder="Fill the file name" readonly type="text" />
 						</div>
 
 						<div class="w-full">
 							<Label for="original_name" value="Original name" />
 							<Input id="original_name" v-model="form.original_name" class="block w-full mt-2 p-4"
-								placeholder="Fill the original name" required type="text" />
-							<ValidationError input="original_name" />
+								placeholder="Fill the original name" readonly type="text" />
 						</div>
 
 						<div class="w-full">
 							<Label for="extension" value="extension" />
-							<Input id="extension" v-model="form.extension" class="block w-full mt-2 p-4"
+							<Input id="extension" v-model="form.extension" readonly class="block w-full mt-2 p-4"
 								placeholder="Fill the extension" type="text" />
-							<ValidationError input="extension" />
 						</div>
 					</div>
 
