@@ -36,7 +36,7 @@ Route::get('/single/{article:slug}', function (Article $article) {
 		->get()
 		->except($article->id);
 
-	$comments = Comment::where('article_id', $article->id)->with(['user'])->latest()->paginate(9);
+	$comments = Comment::where('article_id', $article->id)->with(['user'])->latest()->paginate(32);
 
 	return Inertia::render('Single', [
 		'article' => $article->load(['banner']),
