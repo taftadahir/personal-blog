@@ -1,32 +1,39 @@
 <script setup>
-import { Head, useForm } from '@inertiajs/inertia-vue3'
-import FrontendLayout from '@/Layouts/FrontendLayout.vue'
+import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
 import { onMounted } from '@vue/runtime-core'
+import FrontendLayout from '@/Layouts/FrontendLayout.vue'
 import Article from '@/Components/Article.vue'
 import Input from '@/Components/Input.vue'
 import ValidationError from '@/Components/ValidationError.vue'
 import Textarea from '@/Components/Textarea.vue'
 import Button from '@/Components/Button.vue'
-import CommentButton from '@/Components/CommentButton.vue'
 import '@/prism.js'
 
 onMounted(() => {
 	Prism.highlightAll()
 })
 
-defineProps({
+const props = defineProps({
 	article: Object,
 	articles: Object,
+	comments: Object,
 })
 
 const form = useForm({
+	article_id: props.article.id,
+	user_id:
+		usePage().props.value.auth.user != null
+			? usePage().props.value.auth.user.id
+			: null,
 	user_name: null,
 	email: null,
 	content: null,
 })
 
 const submit = () => {
-	form.post(route('login'))
+	form.post(route('comments.store'), {
+		onFinish: () => (form.content = null),
+	})
 }
 </script>
 
@@ -49,9 +56,8 @@ const submit = () => {
 
 					<!-- Banner & Summary -->
 					<div class="mb-6">
-						<img :src="'/storage/assets/' + article.banner.file_name"
-														alt="Article Image" v-if="article.banner != null"
-							class="block mb-4" />
+						<img :src="'/storage/assets/' + article.banner.file_name" alt="Article Image"
+							v-if="article.banner != null" class="block mb-4" />
 						<summary v-if="article.excerpt" v-text="article.excerpt" class="mx-4 sm:mx-0 block"></summary>
 					</div>
 
@@ -61,15 +67,15 @@ const submit = () => {
 					<!-- Comments -->
 					<div class="comments space-y-12 mx-4 sm:mx-0 mb-12">
 						<!-- Add comments -->
-						<div>
+						<div class="space-y-4">
 							<div class="mb-4 w-full flex flex-row justify-between items-center">
 								<h1 class="mb-0">Comments</h1>
 							</div>
 							<form class="space-y-4">
-								<div
-									class="w-full flex flex-col sm:flex-row justify-between items-start space-y-4 sm:space-y-0 sm:space-x-4">
+								<div class="w-full flex flex-col sm:flex-row justify-between items-start space-y-4 sm:space-y-0 sm:space-x-4"
+									v-if="!$page.props.auth.user">
 									<div class="w-full sm:max-w-lg">
-										<Input id="user_name" v-model="form.user_name" autocomplete="name" autofocus
+										<Input id="user_name" v-model="form.user_name" autocomplete="name"
 											class="block w-full mt-2 p-4" placeholder="Fill your name" required
 											type="text" />
 										<ValidationError input="user_name" />
@@ -81,68 +87,32 @@ const submit = () => {
 										<ValidationError input="email" />
 									</div>
 								</div>
-								<div class="w-full">
-									<Textarea id="content" v-model="form.content" class="block w-full mt-2 p-4"
-										name="content" placeholder="Fill the comment" rows="4" />
+								<div class="w-full space-y-2">
+									<Textarea id="content" v-model="form.content" class="block w-full p-4"
+										name="content" placeholder="Fill the comment" rows="4" required />
 									<ValidationError input="content" />
 								</div>
-								<div class="flex flex-row justify-end w-full">
-									<Button @click='submit'>Send</Button>
-								</div>
 							</form>
+							<div class="flex flex-row justify-end w-full">
+								<Button @click="submit">Send</Button>
+							</div>
 						</div>
 
 						<!-- Existing comments -->
-						<div v-if="article.comments" class="space-y-4">
-							<div class="flex flex-col">
-								<h4>Username</h4>
-								<div class="flex flex-row">
-									<CommentButton class="px-2 mr-12"></CommentButton>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur
-										adipiscing elit ut aliquam, purus sit
-										amet luctus venenatis, lectus magna
-										fringilla urna, porttitor rhoncus dolor
-										purus non enim
-									</p>
-								</div>
-								<div class="ml-20 mt-4">
-									<h4>Username</h4>
-									<div class="flex flex-row">
-										<p class="ml-12">
-											Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit ut
-											aliquam, purus sit amet luctus
-											venenatis, lectus magna fringilla
-											urna, porttitor rhoncus dolor purus
-											non enim
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="flex flex-col">
-								<h4>Username</h4>
-								<div class="flex flex-row">
-									<CommentButton class="px-2 mr-12"></CommentButton>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur
-										adipiscing elit ut aliquam, purus sit
-										amet luctus venenatis, lectus magna
-										fringilla urna, porttitor rhoncus dolor
-										purus non enim
-									</p>
-								</div>
-								<div class="ml-20 mt-4">
-									<h4>Username</h4>
-									<div class="flex flex-row">
-										<p class="ml-12">
-											Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit ut
-											aliquam, purus sit amet luctus
-											venenatis, lectus magna fringilla
-											urna, porttitor rhoncus dolor purus
-											non enim
-										</p>
+						<div v-if="comments.data.length" class="space-y-4">
+							<div class="flex flex-col" v-for="comment in comments.data" key="comment.id">
+								<h4>
+									{{
+											comment.user_name != null
+												? comment.user_name
+												: comment.user != null
+													? comment.user.name
+													: 'Unknown'
+									}}
+								</h4>
+								<div class="flex flex-row ml-8">
+									<div class="block">
+										{{ comment.content }}
 									</div>
 								</div>
 							</div>

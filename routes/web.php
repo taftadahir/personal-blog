@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,9 +36,12 @@ Route::get('/single/{article:slug}', function (Article $article) {
 		->get()
 		->except($article->id);
 
+	$comments = Comment::where('article_id', $article->id)->with(['user'])->latest()->paginate(9);
+
 	return Inertia::render('Single', [
 		'article' => $article->load(['banner']),
 		'articles' => $articles,
+		'comments' => $comments,
 	]);
 })->name('single');
 

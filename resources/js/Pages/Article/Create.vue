@@ -1,6 +1,6 @@
 <script setup>
-import DashboardLayout from '@/Layouts/DashboardLayout.vue'
 import { Head, useForm } from '@inertiajs/inertia-vue3'
+import DashboardLayout from '@/Layouts/DashboardLayout.vue'
 import Button from '@/Components/Button.vue'
 import Input from '@/Components/Input.vue'
 import Label from '@/Components/Label.vue'
