@@ -7,6 +7,8 @@ import Input from '@/Components/Input.vue'
 import ValidationError from '@/Components/ValidationError.vue'
 import Textarea from '@/Components/Textarea.vue'
 import Button from '@/Components/Button.vue'
+import SidebarItem from '@/Components/SidebarItem.vue'
+import TrashOutline from '@/Components/Icons/TrashOutline.vue'
 import '@/prism.js'
 
 onMounted(() => {
@@ -101,15 +103,24 @@ const submit = () => {
 						<!-- Existing comments -->
 						<div v-if="comments.data.length" class="space-y-4">
 							<div class="flex flex-col" v-for="comment in comments.data" key="comment.id">
-								<h4>
-									{{
-											comment.user_name != null
-												? comment.user_name
-												: comment.user != null
-													? comment.user.name
-													: 'Unknown'
-									}}
-								</h4>
+								<div class="flex flex-row items-center justify-between">
+									<h4>
+										{{
+												comment.user_name != null
+													? comment.user_name
+													: comment.user != null
+														? comment.user.name
+														: 'Unknown'
+										}}
+									</h4>
+									<SidebarItem :active="false" :href="
+										route('comments.destroy', {
+											comment: comment.id,
+										})
+									" :logout="true" as="button" method="delete" v-if="$page.props.auth.user">
+										<TrashOutline></TrashOutline>
+									</SidebarItem>
+								</div>
 								<div class="flex flex-row ml-8">
 									<div class="block">
 										{{ comment.content }}
