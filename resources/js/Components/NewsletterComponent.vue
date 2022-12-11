@@ -21,7 +21,8 @@ const props = defineProps({
 			{{ newsletter.email }}
 		</p>
 
-		<SidebarItem :active="false" :href="route('logout')" :logout="true" as="button" method="post">
+		<SidebarItem :active="false" :href="route('newsletters.destroy',
+				{newsletter: newsletter.id})" :logout="true" as="button" method="delete">
 			<TrashOutline class=""></TrashOutline>
 		</SidebarItem>
 	</div>
