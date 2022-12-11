@@ -63,7 +63,9 @@ const submit = () => {
 					<EyeOutline
 						class="fill-black-500 dark:fill-white-500 hover:fill-primary-500 hover:dark:fill-primary-500 transition duration-150 ease-in-out" />
 					</Link>
-					<SidebarItem :active="false" :href="route('logout')" :logout="true" as="button" method="post">
+					<SidebarItem :active="false" :href="
+						route('articles.destroy', { article: article.id })
+					" :logout="true" as="button" method="delete">
 						<TrashOutline class=""></TrashOutline>
 					</SidebarItem>
 					<Button @click="submit">Save</Button>
