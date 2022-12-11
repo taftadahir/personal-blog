@@ -58,10 +58,31 @@ class ArticleController extends Controller
 
 	public function edit(Article $article)
 	{
+		$assets = Asset::all();
+		return Inertia::render('Article/Edit', [
+			'assets' => $assets,
+			'article' => $article
+		]);
 	}
 
 	public function update(UpdateArticleRequest $request, Article $article)
 	{
+		$validated = $request->validated();
+
+		if (isset($validated['published']) && $validated['published']) {
+			$validated['published_at'] = Carbon::now();
+		}
+
+		if (isset($validated['banner'])) {
+			$banner = Asset::where('id', $validated['banner'])->first();
+			$article->banner()->associate($banner);
+		}
+
+		$article->update($validated);
+
+		return redirect()->route('articles.index')->with([
+			'success' => 'Article created successfull.'
+		]);
 	}
 
 	public function destroy(Article $article)

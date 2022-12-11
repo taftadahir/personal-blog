@@ -29,7 +29,7 @@ defineProps({
 				<div
 					class="grid gap-y-6 no-scrollbar grid-cols-1 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mb-12">
 					<Article v-for="article in articles.data" :key="article.slug" :article="article"
-						:show-image="article.banner != null"></Article>
+						:show-image="article.banner != null" :to-edit="true" ></Article>
 				</div>
 
 				<!-- No articles -->

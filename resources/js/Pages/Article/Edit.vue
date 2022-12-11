@@ -7,26 +7,26 @@ import Label from '@/Components/Label.vue'
 import TrashOutline from '@/Components/Icons/TrashOutline.vue'
 import ValidationError from '@/Components/ValidationError.vue'
 import Textarea from '@/Components/Textarea.vue'
-import SidebarItem from '@/Components/Dashboard/SidebarItem.vue'
+import SidebarItem from '@/Components/SidebarItem.vue'
 import EyeOutline from '@/Components/Icons/EyeOutline.vue'
 import useSlugify from '@/Composables/useSlugify'
 import { watch } from 'vue'
 
 const { slugify } = useSlugify()
 
-defineProps({
+const props = defineProps({
 	article: Object,
 	assets: Array,
 })
 
 const form = useForm({
-	banner: null,
-	title: '',
-	slug: '',
-	read_time: 0,
-	published: false,
-	excerpt: '',
-	content: '',
+	banner: props.article.banner_id,
+	title: props.article.title,
+	slug: props.article.slug,
+	read_time: props.article.read_time,
+	published: props.article.published,
+	excerpt: props.article.excerpt,
+	content: props.article.content,
 })
 
 // Auto-slugifying watcher
@@ -38,19 +38,23 @@ watch(
 )
 
 const submit = () => {
-	form.post(route('articles.store'))
+	form.put(
+		route('articles.update', {
+			article: props.article.id,
+		})
+	)
 }
 </script>
 
 <template>
 
-	<Head title="Create Article" />
+	<Head title="Edit Article" />
 
 	<DashboardLayout>
 		<div class="flex flex-col mx-auto w-full mt-6">
 			<div class="flex flex-row items-center justify-between mb-6">
 				<h1 class="text-black-500 dark:text-white-50 font-semibold text-3xl">
-					Create Article
+					Edit Article
 				</h1>
 
 				<div class="flex flex-row space-x-4">
@@ -71,8 +75,8 @@ const submit = () => {
 					<div class="flex flex-col items-start space-y-4 min-w-[28rem] max-w-lg">
 						<div class="w-full">
 							<Label for="title" value="Title" />
-							<Input id="title" v-model="form.title" autofocus
-								class="block w-full mt-2 p-4" placeholder="Fill the title" required type="text" />
+							<Input id="title" v-model="form.title" autofocus class="block w-full mt-2 p-4"
+								placeholder="Fill the title" required type="text" />
 							<ValidationError input="title" />
 						</div>
 
@@ -85,14 +89,14 @@ const submit = () => {
 
 						<div class="w-full">
 							<Label for="read_time" value="Read time [ seconds ]" />
-							<Input id="read_time" v-model="form.read_time"
-								class="block w-full mt-2 p-4" placeholder="Fill read time in seconds" type="number" />
+							<Input id="read_time" v-model="form.read_time" class="block w-full mt-2 p-4"
+								placeholder="Fill read time in seconds" type="number" />
 							<ValidationError input="read_time" />
 						</div>
 
 						<div class="w-full">
 							<Label for="published" value="Published" />
-							<input type="checkbox" value="published" id="published"
+							<input type="checkbox" v-model="form.published" id="published"
 								class="w-4 h-4 text-primary-500 bg-white-500 border-primary-50 focus:ring-primary-50 rounded dark:focus:ring-black-600 dark:ring-offset-primary-600 focus:ring-2 dark:bg-black-600 dark:border-black-600 checked:border-primary-500 checked:ring-primary-500 checked:bg-primary-500" />
 							<ValidationError input="published" />
 						</div>

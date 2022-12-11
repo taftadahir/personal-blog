@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3'
-defineProps({
+const props = defineProps({
 	article: {
 		type: Object,
 		required: true,
@@ -11,12 +11,23 @@ defineProps({
 		required: false,
 		default: true,
 	},
+
+	toEdit: {
+		type: Boolean,
+		default: false,
+	},
 })
+
+const url = props.toEdit
+	? route('articles.edit', {
+		article: +props.article.id,
+	})
+	: route('single', { article: props.article.slug })
 </script>
 
 <template>
 	<article class="group w-full transition ease-in-out duration-150">
-		<Link class="space-y-2" :href="route('single', { article: article.slug })">
+		<Link class="space-y-2" :href="url">
 		<img :src="'/storage/assets/' + article.banner.file_name" alt="Article Image" class="w-full aspect-video"
 			v-if="showImage" />
 		<div class="px-4 space-y-2 sm:px-0">
