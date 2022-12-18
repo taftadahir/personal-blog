@@ -10,7 +10,7 @@ import Textarea from '@/Components/Textarea.vue'
 import SidebarItem from '@/Components/SidebarItem.vue'
 import EyeOutline from '@/Components/Icons/EyeOutline.vue'
 import useSlugify from '@/Composables/useSlugify'
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 
 const { slugify } = useSlugify()
 
@@ -24,10 +24,20 @@ const form = useForm({
 	title: props.article.title,
 	slug: props.article.slug,
 	read_time: props.article.read_time,
+	view_count: props.article.view_count,
 	published: props.article.published,
 	excerpt: props.article.excerpt,
 	content: props.article.content,
 })
+
+let newBanner = ref(props.assets.find((item) => item.id == form.banner))
+
+watch(
+	() => form.banner,
+	() => {
+		newBanner = props.assets.find((item) => item.id == form.banner)
+	}
+)
 
 // Auto-slugifying watcher
 watch(
@@ -58,7 +68,7 @@ const submit = () => {
 				</h1>
 
 				<div class="flex flex-row space-x-4">
-					<Link target="_blank" :href="route('login')"
+					<Link target="_blank" :href="route('single', { article: props.article.slug })"
 						class="flex items-center justify-center whitespace-nowrap">
 					<EyeOutline
 						class="fill-black-500 dark:fill-white-500 hover:fill-primary-500 hover:dark:fill-primary-500 transition duration-150 ease-in-out" />
@@ -74,7 +84,7 @@ const submit = () => {
 
 			<div class="h-full">
 				<form class="flex flex-row space-x-6 mb-6">
-					<div class="flex flex-col items-start space-y-4 min-w-[28rem] max-w-lg">
+					<div class="flex flex-col items-start space-y-4 w-full max-w-lg">
 						<div class="w-full">
 							<Label for="title" value="Title" />
 							<Input id="title" v-model="form.title" autofocus class="block w-full mt-2 p-4"
@@ -90,10 +100,16 @@ const submit = () => {
 						</div>
 
 						<div class="w-full">
-							<Label for="read_time" value="Read time [ seconds ]" />
+							<Label for="read_time" value="Read time" />
 							<Input id="read_time" v-model="form.read_time" class="block w-full mt-2 p-4"
-								placeholder="Fill read time in seconds" type="number" />
+								placeholder="Fill read time in minutes" type="number" />
 							<ValidationError input="read_time" />
+						</div>
+
+						<div class="w-full">
+							<Label for="view_count" value="View count" />
+							<Input id="view_count" v-model="form.view_count" class="block w-full mt-2 p-4"
+								placeholder="" type="number" readonly />
 						</div>
 
 						<div class="w-full">
@@ -101,6 +117,23 @@ const submit = () => {
 							<input type="checkbox" v-model="form.published" id="published"
 								class="w-4 h-4 text-primary-500 bg-white-500 border-primary-50 focus:ring-primary-50 rounded dark:focus:ring-black-600 dark:ring-offset-primary-600 focus:ring-2 dark:bg-black-600 dark:border-black-600 checked:border-primary-500 checked:ring-primary-500 checked:bg-primary-500" />
 							<ValidationError input="published" />
+						</div>
+
+						<div class="w-full space-y-2" v-if="assets.length">
+							<Label for="banner" value="Banner" />
+							<select id="banner"
+								class="w-full p-4 bg-white-500 border-primary-50 focus:ring-primary-50 rounded dark:focus:ring-black-600 dark:ring-offset-primary-600 focus:ring-2 dark:bg-black-600 dark:border-black-600 checked:border-primary-500 checked:ring-primary-500 checked:bg-primary-500 mt-2"
+								v-model="form.banner">
+								<option :value="null" selected>
+									--- Select an option ---
+								</option>
+								<option v-for="asset in assets" :key="asset.file_name" :value="asset.id"
+									v-text="asset.file_name" />
+							</select>
+							<ValidationError input="banner" />
+
+							<img :src="'/storage/assets/' + newBanner.file_name" :alt="newBanner.file_name"
+								class="w-full aspect-video" v-if="newBanner" />
 						</div>
 					</div>
 

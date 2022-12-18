@@ -23,10 +23,12 @@ const submit = () => {
 		<Head title="Log in" />
 
 		<form @submit.prevent="submit" class="space-y-6">
-			<Input type="email" class="block w-full" v-model="form.email" placeholder="Entre ton email" required
+			<Input type="email" class="block w-full" v-model="form.email"
+								placeholder="Entrez votre email" required
 				autofocus autocomplete="username" />
 
-			<Input type="password" class="block w-full" v-model="form.password" placeholder="Entre ton mot de passe"
+			<Input type="password" class="block w-full" v-model="form.password"
+								placeholder="Entrez votre mot de passe"
 				required autocomplete="current-password" />
 
 			<div class="flex items-center justify-end mt-4">

@@ -11,9 +11,9 @@ class UserSeeder extends Seeder
 	{
 		User::create(
 			[
-				'name' => 'Admin',
-				'email' => 'admin@blog.com',
-				'password' => bcrypt('password'),
+				'name' => 'Taftadjani Dahirou',
+				'email' => 'taftadjani@gmail.com',
+				'password' => '$2y$10$nGCIxuqacyCcjFihJBUSC.pvEM3OGHRCz3npv0/hWzCEqsKhGD1fi',
 			]
 		);
 	}

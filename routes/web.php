@@ -20,7 +20,7 @@ Route::get('/', function (Request $request) {
 	$articles = $articles
 		->with(['banner'])
 		->latest()
-		->paginate(12)
+		->paginate(9)
 		->withQueryString();
 
 	return Inertia::render('Home', [
@@ -36,6 +36,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/single/{article:slug}', function (Article $article) {
+	if (!$article->published && !auth()->check()) {
+		abort(code: 404);
+	}
+
 	$article->update([
 		'view_count' => $article->view_count + 1
 	]);

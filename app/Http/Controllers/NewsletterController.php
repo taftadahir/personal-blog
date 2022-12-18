@@ -26,8 +26,8 @@ class NewsletterController extends Controller
 	}
 
 	public function destroy(Newsletter $newsletter)
-		{
-				$newsletter->delete();
+	{
+		$newsletter->delete();
 
 		return redirect()->route('newsletters.index')->with([
 			'success' => 'Newsletter Deleted successfull.'

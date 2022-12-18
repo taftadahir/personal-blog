@@ -43,7 +43,7 @@ const submit = () => {
 
 	<Head :title="article.title" />
 
-	<FrontendLayout class="text-black-500 dark:text-white-50">
+	<FrontendLayout class="text-black-500 dark:text-white-50 single">
 		<div class="flex flex-col items-center lg:flex-row justify-center lg:justify-center:space-x-10 sm:px-4 lg:px-0">
 			<div class="w-full max-w-3xl">
 				<!-- Title -->
@@ -51,16 +51,17 @@ const submit = () => {
 
 				<div>
 					<!-- article details -->
-					<div class="mx-4 sm:mx-0 mb-4">
-						<span class="text-base text-white-600">Publié le {{ article.published_at }} - Durée de
-							lecture : {{ article.read_time }} mins</span>
+					<div class="mx-4 sm:mx-0 mb-4 text-base text-white-600">
+						<span class="" v-if="article.published_at">Publié le {{ article.published_at }}</span>
+						<span v-if="article.read_time">
+							- {{ article.read_time }} min(s) de lecture</span>
 					</div>
 
 					<!-- Banner & Summary -->
-					<div class="mb-6">
+					<div class="mb-6" v-if="article.banner != null || article.banner">
 						<img :src="'/storage/assets/' + article.banner.file_name" alt="Article Image"
 							v-if="article.banner != null" class="block mb-4" />
-						<summary v-if="article.excerpt" v-text="article.excerpt" class="mx-4 sm:mx-0 block"></summary>
+						<summary v-if="article.excerpt" v-html="article.excerpt" class="mx-4 sm:mx-0 block"></summary>
 					</div>
 
 					<!-- Body -->
@@ -71,32 +72,31 @@ const submit = () => {
 						<!-- Add comments -->
 						<div class="space-y-4">
 							<div class="mb-4 w-full flex flex-row justify-between items-center">
-								<h1 class="mb-0">Comments</h1>
+								<h1 class="mb-0">Commentaires</h1>
 							</div>
 							<form class="space-y-4">
 								<div class="w-full flex flex-col sm:flex-row justify-between items-start space-y-4 sm:space-y-0 sm:space-x-4"
 									v-if="!$page.props.auth.user">
 									<div class="w-full sm:max-w-lg">
 										<Input id="user_name" v-model="form.user_name" autocomplete="name"
-											class="block w-full mt-2 p-4" placeholder="Fill your name" required
-											type="text" />
+											class="block w-full mt-2 p-4" placeholder="Entrez votre nom" required type="text" />
 										<ValidationError input="user_name" />
 									</div>
 
 									<div class="w-full sm:max-w-lg">
 										<Input id="email" v-model="form.email" class="block w-full mt-2 p-4"
-											placeholder="Fill your email" required type="text" />
+											placeholder="Entrez votre email" required type="text" />
 										<ValidationError input="email" />
 									</div>
 								</div>
 								<div class="w-full space-y-2">
 									<Textarea id="content" v-model="form.content" class="block w-full p-4"
-										name="content" placeholder="Fill the comment" rows="4" required />
+										name="content" placeholder="Saisissez le contenu de votre commentaires" rows="4" required />
 									<ValidationError input="content" />
 								</div>
 							</form>
 							<div class="flex flex-row justify-end w-full">
-								<Button @click="submit">Send</Button>
+								<Button @click="submit">Envoyer</Button>
 							</div>
 						</div>
 
@@ -122,9 +122,7 @@ const submit = () => {
 									</SidebarItem>
 								</div>
 								<div class="flex flex-row ml-8">
-									<div class="block">
-										{{ comment.content }}
-									</div>
+									<div class="block" v-text="comment.content"></div>
 								</div>
 							</div>
 						</div>

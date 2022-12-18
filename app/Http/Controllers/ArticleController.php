@@ -15,7 +15,7 @@ class ArticleController extends Controller
 	{
 		$articles = Article::with(['banner'])
 			->latest()
-			->paginate(8);
+			->paginate(10);
 
 		return Inertia::render('Article/Index', [
 			'articles' => $articles,
@@ -69,8 +69,12 @@ class ArticleController extends Controller
 	{
 		$validated = $request->validated();
 
-		if (isset($validated['published']) && $validated['published']) {
-			$validated['published_at'] = Carbon::now();
+		if (isset($validated['published'])) {
+			if ($validated['published']) {
+				$validated['published_at'] = Carbon::now();
+			} else {
+				$validated['published_at'] = null;
+			}
 		}
 
 		if (isset($validated['banner'])) {

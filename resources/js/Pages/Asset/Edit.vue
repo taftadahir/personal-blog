@@ -1,10 +1,16 @@
 <script setup>
 import DashboardLayout from '@/Layouts/DashboardLayout.vue'
+import { onMounted } from '@vue/runtime-core'
 import { Head, useForm } from '@inertiajs/inertia-vue3'
 import Input from '@/Components/Input.vue'
 import Label from '@/Components/Label.vue'
 import TrashOutline from '@/Components/Icons/TrashOutline.vue'
 import SidebarItem from '@/Components/SidebarItem.vue'
+import '@/prism.js'
+
+onMounted(() => {
+	Prism.highlightAll()
+})
 
 const props = defineProps({
 	asset: Object,
@@ -60,7 +66,11 @@ const form = useForm({
 
 					<div class="w-full h-full">
 						<Label for="file" value="Preview" />
-						<img :src="'/storage/assets/' + form.file_name" alt="Asset Image" class="w-full aspect-video" />
+						<img :src="'/storage/assets/' + form.file_name" alt="Asset Image" class="w-full aspect-video"
+							v-if="asset.extension == 'jpg'" />
+						<div v-else>
+							<pre :data-src="'/storage/assets/' + form.file_name"></pre>
+						</div>
 					</div>
 				</form>
 			</div>

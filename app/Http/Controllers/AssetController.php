@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAssetRequest;
 use App\Models\Asset;
-use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class AssetController extends Controller
 {
 	public function index()
 	{
-		$assets = Asset::latest()->paginate(9);
+		$assets = Asset::latest()->paginate(10);
 		return Inertia::render('Asset/Index', [
 			'assets' => $assets,
 		]);
@@ -28,12 +28,12 @@ class AssetController extends Controller
 
 		$file = $request->file('asset');
 		$extension = $file->clientExtension();
-		$file->store('assets', 'public');
 		$hashName = $file->hashName();
+		$file->storeAs('assets', pathinfo($hashName, PATHINFO_FILENAME) . '.' . $extension, 'public');
 
 		Asset::create([
 			'original_name' => $file->getClientOriginalName(),
-			'file_name' => $hashName,
+			'file_name' => pathinfo($hashName, PATHINFO_FILENAME) . '.' . $extension,
 			'extension' => $extension
 		]);
 
@@ -55,6 +55,9 @@ class AssetController extends Controller
 
 	public function destroy(Asset $asset)
 	{
+		if (Storage::disk('public')-> exists('assets/' . $asset->file_name)) {
+			Storage::disk('public')->delete('assets/' . $asset->file_name);
+		}
 		$asset->delete();
 
 		return redirect()->route('assets.index')->with([

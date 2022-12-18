@@ -28,7 +28,8 @@ const url = props.toEdit
 <template>
 	<article class="group w-full transition ease-in-out duration-150">
 		<Link class="space-y-2" :href="url">
-		<img :src="'/storage/assets/' + article.banner.file_name" alt="Article Image" class="w-full aspect-video"
+		<img :src="'/storage/assets/' + article.banner.file_name" alt="Article
+						Image" class="w-full aspect-video"
 			v-if="showImage" />
 		<div class="px-4 space-y-2 sm:px-0">
 			<h3

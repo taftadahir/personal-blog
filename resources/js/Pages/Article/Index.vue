@@ -12,13 +12,13 @@ defineProps({
 
 <template>
 
-	<Head title="Create Article" />
+	<Head title="Articles" />
 
 	<DashboardLayout>
-		<div class="flex flex-col mx-auto w-full mt-6">
-			<div class="flex flex-row items-center justify-between mb-6">
+		<div class="flex flex-col mx-auto w-full">
+			<div class="flex flex-row items-center justify-between mb-6 pb-4 border-b border-gray-200">
 				<h1 class="text-black-500 dark:text-white-50 font-semibold text-3xl">
-					List Article
+					Articles
 				</h1>
 
 				<LinkButton :href="route('articles.create')">Add</LinkButton>
@@ -27,7 +27,8 @@ defineProps({
 			<div class="h-full">
 				<!-- Articles -->
 				<div
-					class="grid gap-y-6 no-scrollbar grid-cols-1 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mb-12">
+					class="grid gap-y-6 no-scrollbar grid-cols-1 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mb-12"
+										v-if="articles.data.length">
 					<Article v-for="article in articles.data" :key="article.slug" :article="article"
 						:show-image="article.banner != null" :to-edit="true" ></Article>
 				</div>

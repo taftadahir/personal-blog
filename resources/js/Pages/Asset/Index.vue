@@ -12,13 +12,13 @@ defineProps({
 
 <template>
 
-	<Head title="List assets" />
+	<Head title="Assets" />
 
 	<DashboardLayout>
-		<div class="flex flex-col mx-auto w-full mt-6">
-			<div class="flex flex-row items-center justify-between mb-6">
+		<div class="flex flex-col mx-auto w-full">
+			<div class="flex flex-row items-center justify-between mb-6 pb-4 border-b border-gray-200">
 				<h1 class="text-black-500 dark:text-white-50 font-semibold text-3xl">
-					List assets
+					Assets
 				</h1>
 
 				<LinkButton :href="route('assets.create')">Import</LinkButton>
@@ -26,7 +26,8 @@ defineProps({
 
 			<div class="h-full">
 				<div
-					class="grid gap-y-6 no-scrollbar grid-cols-1 mb-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+					class="grid gap-y-6 no-scrollbar grid-cols-1 mb-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+										v-if="assets.data.length">
 					<Asset v-for="asset in assets.data" :key="asset.file_name" :asset="asset"></Asset>
 				</div>
 

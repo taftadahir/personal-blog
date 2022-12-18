@@ -41,18 +41,16 @@ watch(
 				class="text-base text-black-300 dark:text-white-500 sm:text-xl transition ease-in-out duration-150">Bienvenue
 				dans mon blog
 			</span>
-			<div class="mt-2 text-3xl font-medium leading-10 text-black-500 dark:text-white-50 sm:text-4xl">
-				Tu trouveras ici des articles autour de la
-				<span class="text-primary-500">blockchain</span>,
-				<span class="text-primary-500">cyber securité</span>,
-				<span class="text-primary-500">developpement</span> et de mes
-				<span class="text-primary-500">autres hobbies</span>.
+			<div class="mt-2 text-2xl font-medium leading-normal text-black-500 dark:text-white-50">
+				Je partage des articles autour de mes hobbies :
+				<span class="text-primary-500">programmation, développement, cybersécurité, blockchain, la
+					3D avec Blender et potentiellement de l'AI.</span>
 			</div>
 		</div>
 
 		<!-- Search -->
 		<div class="mb-12 sm:mx-4 lg:mx-0">
-			<Input type="text" class="block w-full p-4 text-center" placeholder="Entre un mot clé" v-model="search" />
+			<Input type="text" class="block w-full p-4 text-center" placeholder="Entrez un mot clé" v-model="search" />
 		</div>
 
 		<!-- Articles -->
@@ -64,7 +62,7 @@ watch(
 
 		<!-- No articles -->
 		<div v-if="!articles.data.length"
-			class="mb-12 text-base text-black-300 dark:text-white-500 transition ease-in-out duration-150 sm:text-xl">
+			class="mb-12 text-base transition ease-in-out duration-150 sm:text-xl text-black-500 dark:text-white-50 mx-4 lg:mx-0">
 			Pas de résultat ...
 		</div>
 

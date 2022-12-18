@@ -79,9 +79,9 @@ const submit = () => {
 						</div>
 
 						<div class="w-full">
-							<Label for="read_time" value="Read time [ seconds ]" />
+							<Label for="read_time" value="Read time" />
 							<Input id="read_time" v-model="form.read_time" class="block w-full mt-2 p-4"
-								placeholder="Fill read time in seconds" type="number" />
+								placeholder="Fill read time in minutes" type="number" />
 							<ValidationError input="read_time" />
 						</div>
 
@@ -92,7 +92,7 @@ const submit = () => {
 							<ValidationError input="published" />
 						</div>
 
-						<div class="w-full space-y-2">
+						<div class="w-full space-y-2" v-if="assets.length">
 							<Label for="banner" value="Banner" />
 							<select id="banner"
 								class="w-full p-4 bg-white-500 border-primary-50 focus:ring-primary-50 rounded dark:focus:ring-black-600 dark:ring-offset-primary-600 focus:ring-2 dark:bg-black-600 dark:border-black-600 checked:border-primary-500 checked:ring-primary-500 checked:bg-primary-500 mt-2"

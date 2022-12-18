@@ -12,19 +12,21 @@ defineProps({
 
 <template>
 
-	<Head title="Newsletter" />
+	<Head title="Newsletters" />
 
 	<DashboardLayout>
-		<div class="flex flex-col mx-auto w-full mt-6">
-			<div class="flex flex-row items-center justify-between mb-6">
+		<div class="flex flex-col mx-auto w-full">
+			<div class="flex flex-row items-center justify-between mb-6 pb-4 border-b border-gray-200">
 				<h1 class="text-black-500 dark:text-white-50 font-semibold text-3xl">
-					List newsletter
+					Newsletters
 				</h1>
 			</div>
 
 			<div class="h-full">
 				<div
-					class="grid gap-y-6 no-scrollbar grid-cols-1 mb-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
+					class="grid gap-y-6 no-scrollbar grid-cols-1 mb-12 sm:grid-cols-2
+										sm:gap-x-6 lg:grid-cols-3 xl:grid-cols-4"
+										v-if="newsletters.data.length">
 					<NewsletterComponent v-for="(newsletter, i) in newsletters.data" :key="newsletter.id"
 						:newsletter="newsletter" :is-even="i % 2 == 0"></NewsletterComponent>
 				</div>
