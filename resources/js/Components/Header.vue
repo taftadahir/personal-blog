@@ -17,7 +17,7 @@ import Newsletter from '@/Components/Newsletter.vue'
 			<!-- Right nav -->
 			<Newsletter>
 				<template #trigger>
-					<Button class="w-full sm:w-auto">S'abonner</Button></template>
+					<Button class="w-full sm:w-auto">Subscribe</Button></template>
 			</Newsletter>
 		</header>
 	</nav>

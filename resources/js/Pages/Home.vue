@@ -38,19 +38,17 @@ watch(
 		<!-- Welcome message -->
 		<div class="px-4 py-10 mb-4 bg-primary-50 dark:bg-black-600 sm:px-8 sm:mx-4 lg:mx-0">
 			<span
-				class="text-base text-black-300 dark:text-white-500 sm:text-xl transition ease-in-out duration-150">Bienvenue
-				dans mon blog
+				class="text-base text-black-300 dark:text-white-500 sm:text-xl transition ease-in-out duration-150">Welcome to my blog
 			</span>
 			<div class="mt-2 text-2xl font-medium leading-normal text-black-500 dark:text-white-50">
-				Je partage des articles autour de mes hobbies :
-				<span class="text-primary-500">programmation, développement, cybersécurité, blockchain, la
-					3D avec Blender et potentiellement de l'AI.</span>
+				I share articles around programming like :
+				<span class="text-primary-500">web development with Laravel, mobile development with Flutter, my ide config with Neovim, ....</span>
 			</div>
 		</div>
 
 		<!-- Search -->
 		<div class="mb-12 sm:mx-4 lg:mx-0">
-			<Input type="text" class="block w-full p-4 text-center" placeholder="Entrez un mot clé" v-model="search" />
+			<Input type="text" class="block w-full p-4 text-center" placeholder="Enter a keyword" v-model="search" />
 		</div>
 
 		<!-- Articles -->
@@ -63,14 +61,14 @@ watch(
 		<!-- No articles -->
 		<div v-if="!articles.data.length"
 			class="mb-12 text-base transition ease-in-out duration-150 sm:text-xl text-black-500 dark:text-white-50 mx-4 lg:mx-0">
-			Pas de résultat ...
+			No result ...
 		</div>
 
 		<!-- Infinite Scroll || Pagination -->
 		<div class="flex items-center justify-center mb-12 w-full space-x-4"
 			v-if="articles.prev_page_url || articles.next_page_url">
-			<LinkButton v-if="articles.prev_page_url" :href="articles.prev_page_url">Précédant</LinkButton>
-			<LinkButton v-if="articles.next_page_url" :href="articles.next_page_url">Suivant</LinkButton>
+			<LinkButton v-if="articles.prev_page_url" :href="articles.prev_page_url">Previous</LinkButton>
+			<LinkButton v-if="articles.next_page_url" :href="articles.next_page_url">Next</LinkButton>
 		</div>
 	</FrontendLayout>
 </template>

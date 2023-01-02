@@ -30,11 +30,11 @@ const submit = () => {
 			<div class="h-full flex flex-col justify-center items-center">
 				<div class="w-full flex flex-col justify-start max-w-5xl space-y-4">
 					<p class="font-semibold text-xl text-black-500 dark:text-white-50">
-						Abonnez-vous à notre newsletter
+						Subscribe to the newsletters
 					</p>
 
 					<form class="flex flex-row bg-primary-500 w-full">
-						<Input type="email" class="block w-full p-4" placeholder="Entrez votre email"
+						<Input type="email" class="block w-full p-4" placeholder="Enter your email"
 							v-model="form.email" required autofocus />
 						<Button @click="submit">S'abonner</Button>
 					</form>
